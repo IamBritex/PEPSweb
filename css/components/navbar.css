@@ -1,0 +1,103 @@
+/* --- NAVBAR BASE (Estado Inicial) --- */
+header {
+    background: rgba(255, 255, 255, 1);
+    padding: 1.2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- LOGO (Aumentado de tamaño) --- */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Un poco más de espacio */
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.logo-icon {
+    width: 60px; /* AUMENTADO (Antes 42px) */
+    height: auto;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* Sombra suave para resaltar */
+}
+
+.logo-text {
+    font-size: 1.8rem; /* Texto ligeramente más grande también */
+    font-weight: 800;
+    color: var(--text-main);
+    transition: font-size 0.4s ease;
+}
+
+/* --- MENÚ --- */
+nav ul {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 1rem; /* Texto de menú un poco más legible */
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+/* --- BOTÓN CONTACTO --- */
+.btn-nav {
+    background: var(--primary);
+    color: white !important;
+    padding: 0.7rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-nav:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(79, 172, 254, 0.4);
+}
+
+/* =========================================
+   ESTADO SCROLLED (Tu configuración personalizada)
+   ========================================= */
+header.scrolled {
+    padding: 0.6rem 0; /* SE HACE MÁS PEQUEÑO */
+    background: rgba(0, 0, 0, 0.093); /* MUY TRANSPARENTE (Tu color) */
+    backdrop-filter: blur(12px); /* EFECTO BLUR (Cristal) */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.02); /* Borde casi invisible */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03); /* Sombra suave flotante */
+}
+
+/* Reducción del Logo al hacer scroll (Proporcional al nuevo tamaño) */
+header.scrolled .logo-icon {
+    width: 45px; /* Se reduce a un tamaño cómodo, pero sigue visible */
+}
+
+header.scrolled .logo-text {
+    font-size: 1.5rem;
+}
+
+/* Ajuste del Botón al hacer scroll */
+header.scrolled .btn-nav {
+    padding: 0.5rem 1.4rem;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,133 @@
+/* --- BOTÓN FLOTANTE (FAB) --- */
+
+.fab-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 2000;
+    display: flex;
+    /* CORRECCIÓN: Usamos column normal para que el orden sea:
+       1. Opciones (Arriba)
+       2. Botón Principal (Abajo) */
+    flex-direction: column; 
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Botón Principal */
+.fab-main {
+    width: 64px;
+    height: 64px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    /* Aseguramos que el botón principal esté siempre encima visualmente si hay solapamiento */
+    z-index: 2; 
+}
+
+.fab-main:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.fab-main span {
+    font-size: 30px;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.fab-icon-close { opacity: 0; transform: rotate(-180deg); }
+.fab-icon-main { opacity: 1; transform: rotate(0deg); }
+
+/* Estado Activo */
+.fab-container.active .fab-main {
+    background: #1F2937;
+    transform: rotate(90deg);
+}
+
+.fab-container.active .fab-icon-main { opacity: 0; }
+.fab-container.active .fab-icon-close { opacity: 1; transform: rotate(0deg); }
+
+/* --- OPCIONES (Burbujas) --- */
+.fab-options {
+    display: flex;
+    /* CORRECCIÓN: Orden normal (column) o column-reverse si quieres
+       que el primer elemento del HTML esté pegado al botón principal. 
+       Usaremos column-reverse visualmente dentro del contenedor de opciones 
+       para que el primer link esté más cerca del botón principal. */
+    flex-direction: column-reverse; 
+    gap: 15px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.fab-option {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    
+    opacity: 0;
+    /* Vienen desde abajo (posición del botón principal) */
+    transform: translateY(20px) scale(0.5); 
+    pointer-events: none;
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.fab-option:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Tooltips */
+.fab-option::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.fab-option:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Animación de apertura */
+.fab-container.active .fab-options .fab-option {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+/* Retrasos */
+.fab-container.active .fab-options .fab-option:nth-child(1) { transition-delay: 0.05s; }
+.fab-container.active .fab-options .fab-option:nth-child(2) { transition-delay: 0.1s; }
+.fab-container.active .fab-options .fab-option:nth-child(3) { transition-delay: 0.15s; }

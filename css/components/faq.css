@@ -1,0 +1,99 @@
+/* --- SECCIÓN FAQ --- */
+.faq-section {
+    padding: 6rem 0;
+    background-color: #F9FAFB; /* Fondo ligeramente gris para separar secciones */
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- ITEM DEL ACORDEÓN --- */
+.faq-item {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Estado Activo (Abierto) */
+.faq-item.active {
+    border-color: var(--primary); /* Se pinta del color principal */
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.1);
+}
+
+/* --- HEADER (Pregunta) --- */
+.faq-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    transition: background-color 0.2s;
+}
+
+.faq-header:hover {
+    background-color: #F8FAFC;
+}
+
+.faq-question {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    padding-right: 1rem;
+}
+
+.faq-item.active .faq-question {
+    color: var(--primary); /* Pregunta se vuelve azul al abrir */
+}
+
+/* --- ICONO (Flecha) --- */
+.faq-icon {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Rotación suave */
+    display: flex;
+    align-items: center;
+}
+
+/* Rotar icono al activar */
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+/* --- CUERPO (Respuesta) - Animación JS --- */
+.faq-body {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* La magia de la suavidad */
+    will-change: height;
+}
+
+.faq-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-top: 1px solid transparent; /* Truco para evitar saltos */
+}
+
+/* Pequeña animación de entrada del texto */
+.faq-item.active .faq-content {
+    animation: fadeInText 0.5s ease forwards;
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

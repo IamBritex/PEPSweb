@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Colores Sólidos */
+    --primary: #4FACFE; 
+    --primary-dark: #2F80ED;
+    --accent: #43E97B;
+    
+    /* Fondos Limpios */
+    --bg-body: #F9FAFB; /* Gris casi blanco */
+    --bg-card: #FFFFFF;
+    
+    /* Texto */
+    --text-main: #1A2B3C;
+    --text-muted: #64748B;
+    --text-light: #FFFFFF;
+    
+    --radius-md: 12px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    --shadow-hover: 0 10px 25px rgba(0,0,0,0.08); /* Sombra suave */
+    
+    --font-main: 'Manrope', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+}
+
+a { text-decoration: none; transition: all 0.3s ease; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.section-title { font-size: 2.2rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; color: var(--text-main); }
+.section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--text-muted); }
+.text-center { text-align: center; }
+
+/* Botones Planos */
+.btn { display: inline-block; padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: white; }

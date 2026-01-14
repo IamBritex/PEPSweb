@@ -1,0 +1,149 @@
+/* --- SECCIÓN --- */
+.testimonials-section {
+    padding: 6rem 0;
+    background-color: #F9FAFB;
+}
+
+/* --- TABS (Estilo Pill/Cápsula) --- */
+.tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.tabs-header {
+    background: #E5E7EB; /* Gris fondo */
+    padding: 0.3rem;
+    border-radius: 50px;
+    display: inline-flex;
+    position: relative;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #FFFFFF;
+    color: var(--primary-dark);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text-main);
+}
+
+/* --- CONTENIDO TABS --- */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- GRID DE CARDS --- */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- TARJETA DE TESTIMONIO --- */
+.review-card {
+    background: #FFFFFF;
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid #F3F4F6;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Icono de comillas decorativo */
+.quote-icon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+    color: #E5E7EB; /* Gris muy claro */
+}
+
+.review-text {
+    font-size: 1.05rem;
+    color: var(--text-main);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+}
+
+.review-text strong {
+    color: var(--primary);
+}
+
+/* Autor */
+.review-author {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    background: var(--primary); /* Fondo azul */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-info strong {
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.author-info span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .reviews-grid { grid-template-columns: 1fr; }
+}

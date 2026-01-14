@@ -13,17 +13,28 @@
     align-items: center; 
 }
 
-.hero-text { z-index: 2; position: relative; }
-
-.hero-image-container {
-    display: flex; justify-content: center; align-items: center;
-    perspective: 1000px; position: relative; z-index: 1;
+/* Contenedor de Textos */
+.hero-text {
+    z-index: 2;
+    position: relative;
 }
 
+.hero-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- IMAGEN HERO --- */
 .hero-main-img {
-    width: 100%; max-width: 500px;      
+    width: 100%;
+    max-width: 500px;      
     aspect-ratio: 1 / 1;   
-    object-fit: cover; object-position: center;
+    object-fit: cover;     
+    object-position: center;
     border-radius: 40px;   
     box-shadow: 0 25px 50px -12px rgba(79, 172, 254, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.8);
@@ -32,52 +43,96 @@
 }
 
 .badge {
-    display: inline-block; background: rgba(79, 172, 254, 0.1);
-    color: var(--primary-dark); padding: 6px 14px; border-radius: 50px;
-    font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase;
+    display: inline-block;
+    background: rgba(79, 172, 254, 0.1);
+    color: var(--primary-dark);
+    padding: 6px 14px; 
+    border-radius: 50px;
+    font-size: 0.85rem; 
+    font-weight: 700; 
+    margin-bottom: 1.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 h1 { 
-    font-size: 3.5rem; line-height: 1.15; margin-bottom: 1.5rem; 
-    color: var(--text-main); text-transform: capitalize;
+    font-size: 3.5rem; 
+    line-height: 1.15; 
+    margin-bottom: 1.5rem; 
+    color: var(--text-main);
+    text-transform: capitalize;
 }
 
 .lead { 
-    font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; 
-    max-width: 90%; line-height: 1.6;
+    font-size: 1.25rem; 
+    color: var(--text-muted); 
+    margin-bottom: 2.5rem; 
+    max-width: 90%; 
+    line-height: 1.6;
 }
 
-.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-btns { 
+    display: flex; 
+    gap: 1rem; 
+    flex-wrap: wrap; 
+}
 
 /* =========================================
-   DISEÑO RESPONSIVO HERO (Mejorado)
+   DISEÑO RESPONSIVO
    ========================================= */
 
+/* --- TABLETS Y MÓVILES (Menos de 992px) --- */
 @media (max-width: 992px) {
-    .hero { padding: 4rem 0 6rem 0; }
-    .hero-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
-    .hero-text { display: flex; flex-direction: column; align-items: center; }
-    .lead { max-width: 100%; font-size: 1.15rem; }
-    .hero-btns { justify-content: center; }
-    
-    .hero-image-container { margin-top: 1rem; }
-    .hero-main-img { max-width: 380px; border-radius: 32px; }
-    h1 { font-size: 2.8rem; }
-}
-
-/* --- MÓVIL (Ajustes finos para que no se vea "raro") --- */
-@media (max-width: 600px) {
     .hero {
-        /* Reducimos el padding superior para que se acerque al nav */
-        padding: 2rem 0 4rem 0; 
+        padding: 4rem 0 6rem 0;
     }
 
     .hero-grid {
-        gap: 2rem; /* Menos espacio entre texto e imagen */
+        grid-template-columns: 1fr;
+        gap: 2rem; /* Menos espacio entre elementos */
+        text-align: center;
+    }
+
+    /* CAMBIO CLAVE: Imagen Primero (Arriba) */
+    .hero-image-container {
+        order: 1; /* Orden 1: Va primero */
+        margin-bottom: 1rem; /* Espacio debajo de la imagen */
+        margin-top: 0;
+    }
+
+    /* CAMBIO CLAVE: Texto Después (Abajo) */
+    .hero-text {
+        order: 2; /* Orden 2: Va después */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lead {
+        max-width: 100%;
+        font-size: 1.15rem;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .hero-main-img {
+        max-width: 380px;
+        border-radius: 32px;
+    }
+    
+    h1 { font-size: 2.8rem; }
+}
+
+/* --- MÓVILES PEQUEÑOS (Menos de 600px) --- */
+@media (max-width: 600px) {
+    .hero {
+        padding: 2rem 0 4rem 0; 
     }
 
     h1 { 
-        font-size: 2rem; /* Texto más compacto */
+        font-size: 2rem; 
         margin-bottom: 1rem;
     }
 
@@ -91,7 +146,6 @@ h1 {
         margin-bottom: 1rem;
     }
 
-    /* Imagen más controlada */
     .hero-main-img {
         max-width: 280px; 
         border-radius: 24px;
@@ -100,9 +154,11 @@ h1 {
     
     .hero-btns {
         width: 100%;
+        gap: 0.8rem;
     }
     
     .hero-btns .btn {
-        width: 100%; /* Botón ancho fácil de tocar */
+        width: 100%;
+        display: block;
     }
 }

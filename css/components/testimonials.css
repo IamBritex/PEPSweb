@@ -4,6 +4,12 @@
     background-color: #F9FAFB;
 }
 
+.section-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+}
+
 /* --- TABS (Estilo Pill/Cápsula) --- */
 .tabs-wrapper {
     display: flex;
@@ -12,23 +18,27 @@
 }
 
 .tabs-header {
-    background: #E5E7EB; /* Gris fondo */
+    background: #E5E7EB;
     padding: 0.3rem;
     border-radius: 50px;
     display: inline-flex;
     position: relative;
+    /* Ajuste para que no se rompa si el texto es largo */
+    max-width: 100%; 
+    overflow-x: auto;
 }
 
 .tab-btn {
     background: transparent;
     border: none;
-    padding: 0.6rem 2rem;
+    padding: 0.7rem 2.5rem; /* Padding generoso en PC */
     border-radius: 50px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-muted);
     font-size: 0.95rem;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se rompa */
 }
 
 .tab-btn.active {
@@ -59,9 +69,10 @@
 /* --- GRID DE CARDS --- */
 .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    /* Flexible: Se adapta desde 320px hasta el infinito */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -76,20 +87,22 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    height: 100%; /* Para que todas tengan la misma altura */
 }
 
 .review-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-color: #E5E7EB;
 }
 
-/* Icono de comillas decorativo */
+/* Icono de comillas */
 .quote-icon {
     position: absolute;
     top: 2rem;
     right: 2rem;
     font-size: 2rem;
-    color: #E5E7EB; /* Gris muy claro */
+    color: #F3F4F6;
 }
 
 .review-text {
@@ -100,10 +113,12 @@
     position: relative;
     z-index: 1;
     font-style: italic;
+    flex-grow: 1; /* Empuja el autor hacia abajo */
 }
 
 .review-text strong {
     color: var(--primary);
+    font-weight: 700;
 }
 
 /* Autor */
@@ -112,12 +127,14 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #F9FAFB;
 }
 
 .author-avatar {
-    width: 48px;
-    height: 48px;
-    background: var(--primary); /* Fondo azul */
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -125,6 +142,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 0.9rem;
+    flex-shrink: 0; /* Evita que se aplaste */
 }
 
 .author-info {
@@ -142,8 +160,57 @@
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
+/* =========================================
+   DISEÑO RESPONSIVO (Móvil)
+   ========================================= */
+
 @media (max-width: 768px) {
-    .reviews-grid { grid-template-columns: 1fr; }
+    .testimonials-section {
+        padding: 4rem 0; /* Menos espacio vertical */
+    }
+
+    /* Ajuste de Tabs para que ocupen todo el ancho y sean fáciles de tocar */
+    .tabs-wrapper {
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+
+    .tabs-header {
+        width: 100%;
+        display: flex;
+        padding: 4px;
+    }
+
+    .tab-btn {
+        flex: 1; /* Reparte el espacio equitativamente (50% / 50%) */
+        padding: 0.8rem 0;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    /* Grid en una sola columna */
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem; /* Margen lateral de seguridad */
+    }
+
+    /* Tarjetas más compactas */
+    .review-card {
+        padding: 1.5rem;
+    }
+
+    .quote-icon {
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.5rem; /* Icono más pequeño */
+    }
+
+    .review-text {
+        font-size: 1rem; /* Texto un poco más pequeño */
+        margin-bottom: 1.5rem;
+    }
 }

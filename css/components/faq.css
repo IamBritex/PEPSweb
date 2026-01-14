@@ -1,7 +1,7 @@
 /* --- SECCIÓN FAQ --- */
 .faq-section {
     padding: 6rem 0;
-    background-color: #F9FAFB; /* Fondo ligeramente gris para separar secciones */
+    background-color: #F9FAFB; 
 }
 
 .faq-grid {
@@ -21,9 +21,8 @@
     transition: all 0.3s ease;
 }
 
-/* Estado Activo (Abierto) */
 .faq-item.active {
-    border-color: var(--primary); /* Se pinta del color principal */
+    border-color: var(--primary);
     box-shadow: 0 4px 15px rgba(79, 172, 254, 0.1);
 }
 
@@ -51,32 +50,33 @@
     font-weight: 700;
     color: var(--text-main);
     padding-right: 1rem;
+    line-height: 1.4;
 }
 
 .faq-item.active .faq-question {
-    color: var(--primary); /* Pregunta se vuelve azul al abrir */
+    color: var(--primary);
 }
 
 /* --- ICONO (Flecha) --- */
 .faq-icon {
     color: var(--text-muted);
     font-size: 0.9rem;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Rotación suave */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
+    flex-shrink: 0; /* Evita que el icono se aplaste */
 }
 
-/* Rotar icono al activar */
 .faq-item.active .faq-icon {
     transform: rotate(180deg);
     color: var(--primary);
 }
 
-/* --- CUERPO (Respuesta) - Animación JS --- */
+/* --- CUERPO (Respuesta) --- */
 .faq-body {
     height: 0;
     overflow: hidden;
-    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* La magia de la suavidad */
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: height;
 }
 
@@ -85,10 +85,9 @@
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.6;
-    border-top: 1px solid transparent; /* Truco para evitar saltos */
+    border-top: 1px solid transparent;
 }
 
-/* Pequeña animación de entrada del texto */
 .faq-item.active .faq-content {
     animation: fadeInText 0.5s ease forwards;
 }
@@ -96,4 +95,26 @@
 @keyframes fadeInText {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   DISEÑO RESPONSIVO (Móvil)
+   ========================================= */
+@media (max-width: 600px) {
+    .faq-section {
+        padding: 3rem 0; /* Menos aire vertical */
+    }
+
+    .faq-header {
+        padding: 1.2rem; /* Cabecera más compacta */
+    }
+
+    .faq-question {
+        font-size: 0.95rem; /* Texto ajustado */
+    }
+
+    .faq-content {
+        padding: 0 1.2rem 1.2rem 1.2rem;
+        font-size: 0.9rem;
+    }
 }

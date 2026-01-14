@@ -121,30 +121,4 @@ document.addEventListener('DOMContentLoaded', () => {
             e.currentTarget.classList.add('active');
         });
     });
-
-    // 3D LOGO
-    const heroSection = document.getElementById('hero-section');
-    const logo3D = document.getElementById('hero-logo-3d');
-
-    if (heroSection && logo3D) {
-        heroSection.addEventListener('mousemove', (e) => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            // ANTES: * 30 (Muy exagerado)
-            // AHORA: * 10 (Sutil y elegante)
-            const xRotation = (x / width - 0.5) * 10; 
-            const yRotation = (y / height - 0.5) * -10; 
-            
-            logo3D.style.transform = `perspective(1000px) rotateX(${yRotation}deg) rotateY(${xRotation}deg)`;
-        });
-
-        heroSection.addEventListener('mouseleave', () => {
-             // Regresa suavemente al centro
-             logo3D.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-        });
-    }
 });

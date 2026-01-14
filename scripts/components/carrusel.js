@@ -9,17 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(track.children);
     let currentIndex = 0;
     
-    // Función para vibrar (Haptic Feedback)
+    // Variables para Swipe
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Función Vibración
     const vibrate = () => {
-        // Verifica si el navegador soporta vibración
-        if (navigator.vibrate) {
-            navigator.vibrate(40); // Vibra 40ms (suave)
-        }
+        if (navigator.vibrate) navigator.vibrate(40);
     };
 
-    // Crear Dots (Indicadores)
+    // Crear Dots
     const createDots = () => {
-        dotsNav.innerHTML = ''; // Limpiar dots existentes
+        dotsNav.innerHTML = '';
         slides.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.classList.add('dot');
@@ -29,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Inicializar dots
     createDots();
     let dots = Array.from(dotsNav.children);
 
@@ -37,7 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return slides[0].getBoundingClientRect().width;
     };
 
+    // Determinar cuántos slides son visibles
+    const getVisibleSlides = () => {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 700) return 2;
+        return 1;
+    };
+
+    // --- LÓGICA DE MOVIMIENTO ---
     const moveToSlide = (index) => {
+        const visibleSlides = getVisibleSlides();
+        const maxIndex = slides.length - visibleSlides;
+
+        // Bucle Infinito Lógica:
+        // Si el índice es mayor al máximo posible, volvemos al inicio (0)
+        if (index > maxIndex) {
+            index = 0;
+        }
+        // Si el índice es menor a 0, vamos al final
+        if (index < 0) {
+            index = maxIndex;
+        }
+
         const slideWidth = getSlideWidth();
         track.style.transform = `translateX(-${slideWidth * index}px)`;
         
@@ -46,106 +67,94 @@ document.addEventListener('DOMContentLoaded', () => {
         if(dots[index]) dots[index].classList.add('active');
         
         currentIndex = index;
-        updateControls();
         
-        // VIBRAR AL MOVER
+        // Ya NO deshabilitamos botones, siempre activos para el bucle
+        updateControlsVisibility(); 
+        
         vibrate();
     };
 
-    // Determinar cuántos slides son visibles según el ancho de pantalla
-    const getVisibleSlides = () => {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 700) return 2;
-        return 1;
-    };
-
-    // Lógica para ocultar/mostrar controles según si caben todos los elementos
-    const updateControls = () => {
+    // Ocultar controles si TODO el contenido cabe en pantalla
+    const updateControlsVisibility = () => {
         const visibleSlides = getVisibleSlides();
-        const maxIndex = slides.length - visibleSlides;
-
-        // 1. Ocultar TODOS los controles si las tarjetas caben en pantalla
-        // (Ej: Tenemos 3 tarjetas y estamos en desktop viendo 3)
+        
         if (slides.length <= visibleSlides) {
+            // Ocultar todo si no hay nada que scrollear
             dotsNav.style.display = 'none';
             prevButton.style.display = 'none';
             nextButton.style.display = 'none';
-            // Asegurar que esté en la posición 0 si cambiamos de tamaño
             if (currentIndex !== 0) {
                 track.style.transform = `translateX(0px)`;
                 currentIndex = 0;
             }
-            return; // Salimos de la función
         } else {
-            // Si hay más tarjetas que espacio, mostramos controles
+            // Mostrar si hay contenido extra
             dotsNav.style.display = 'flex';
             prevButton.style.display = 'flex';
             nextButton.style.display = 'flex';
-        }
-
-        // 2. Estado de los botones (Deshabilitar extremos)
-        if (currentIndex === 0) {
-            prevButton.disabled = true;
-            prevButton.style.opacity = '0.3';
-        } else {
+            
+            // Aseguramos que los botones estén habilitados para el bucle
             prevButton.disabled = false;
-            prevButton.style.opacity = '1';
-        }
-
-        if (currentIndex >= maxIndex) {
-            nextButton.disabled = true;
-            nextButton.style.opacity = '0.3';
-        } else {
             nextButton.disabled = false;
+            prevButton.style.opacity = '1';
             nextButton.style.opacity = '1';
+            
+            // Ocultar dots inalcanzables (opcional de limpieza)
+            const maxIndex = slides.length - visibleSlides;
+            dots.forEach((dot, index) => {
+                dot.style.display = (index > maxIndex) ? 'none' : 'block';
+            });
         }
-        
-        // 3. Ocultar dots que no sean alcanzables (opcional, limpieza visual)
-        dots.forEach((dot, index) => {
-            if (index > maxIndex) {
-                dot.style.display = 'none';
-            } else {
-                dot.style.display = 'block';
-            }
-        });
     };
 
-    // Event Listeners
+    // --- EVENT LISTENERS BOTONES ---
     nextButton.addEventListener('click', () => {
-        const visibleSlides = getVisibleSlides();
-        const maxIndex = slides.length - visibleSlides;
-        
-        if (currentIndex < maxIndex) {
-            moveToSlide(currentIndex + 1);
-        }
+        moveToSlide(currentIndex + 1);
     });
 
     prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            moveToSlide(currentIndex - 1);
-        }
+        moveToSlide(currentIndex - 1);
     });
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            const visibleSlides = getVisibleSlides();
-            const maxIndex = slides.length - visibleSlides;
-            let targetIndex = index;
-            if (targetIndex > maxIndex) targetIndex = maxIndex;
-            
-            moveToSlide(targetIndex);
+            moveToSlide(index);
         });
     });
 
-    // Resize
+    // --- EVENT LISTENERS TOUCH (SWIPE) ---
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    const handleSwipe = () => {
+        // Umbral mínimo para considerar swipe (50px)
+        const threshold = 50;
+        
+        if (touchEndX < touchStartX - threshold) {
+            // Swipe Izquierda -> Siguiente
+            moveToSlide(currentIndex + 1);
+        }
+        
+        if (touchEndX > touchStartX + threshold) {
+            // Swipe Derecha -> Anterior
+            moveToSlide(currentIndex - 1);
+        }
+    };
+
+    // --- RESIZE ---
     window.addEventListener('resize', () => {
-        // Recalcular visibilidad de dots/flechas
-        updateControls();
-        // Ajustar posición del track
+        updateControlsVisibility();
+        // Recalcular posición para que no se desajuste el transform
         const slideWidth = getSlideWidth();
         track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
     });
 
     // Inicializar
-    updateControls();
+    updateControlsVisibility();
 });

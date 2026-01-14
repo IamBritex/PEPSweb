@@ -1,12 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- LÓGICA DEL NAVBAR ---
+    // --- LÓGICA DEL NAVBAR SCROLL ---
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+        }
+    });
+
+    // --- LÓGICA DEL MENÚ RESPONSIVO (Unificado) ---
+    const toggleBtn = document.getElementById('menu-toggle');
+    const toggleIcon = toggleBtn ? toggleBtn.querySelector('span') : null;
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link, .btn-nav');
+
+    // Función Toggle (Alternar)
+    const toggleMenu = () => {
+        const isOpen = navMenu.classList.contains('active');
+        
+        if (isOpen) {
+            // CERRAR
+            navMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            if(toggleIcon) toggleIcon.textContent = 'menu'; // Cambia icono a hamburguesa
+        } else {
+            // ABRIR
+            navMenu.classList.add('active');
+            document.body.classList.add('menu-open');
+            if(toggleIcon) toggleIcon.textContent = 'close'; // Cambia icono a X
+        }
+    };
+
+    // Función Cerrar Forzoso
+    const closeMenu = () => {
+        navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        if(toggleIcon) toggleIcon.textContent = 'menu';
+    };
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que el click se propague al documento
+            toggleMenu();
+        });
+    }
+
+    // Cerrar al hacer clic en un enlace
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+        if (document.body.classList.contains('menu-open') && 
+            !navMenu.contains(e.target) && 
+            !toggleBtn.contains(e.target)) {
+            closeMenu();
         }
     });
 

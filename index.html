@@ -32,14 +32,19 @@
                     <span class="logo-text">PEPS</span>
                 </a>
             </div>
-            <nav>
-                <ul>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
                     <li><a href="#catalogo" class="nav-link">Soluciones</a></li>
                     <li><a href="#faq" class="nav-link">Soporte</a></li>
                     <li><a href="#testimonios" class="nav-link">Casos de Éxito</a></li>
                     <li><a href="#contacto" class="btn-nav">Contacto</a></li>
                 </ul>
             </nav>
+
+            <button class="mobile-toggle-btn" id="menu-toggle" aria-label="Alternar menú">
+                <span class="material-symbols-rounded">menu</span>
+            </button>
         </div>
     </header>
 
@@ -62,52 +67,78 @@
     </div>
 </section>
 
-        <section id="catalogo" class="catalog-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Catálogo de Productos</h2>
-                    <p class="section-subtitle">Equipamiento de alta especialidad para quirófanos modernos</p>
-                </div>
-                
-                <div class="products-grid">
-                    <article class="pro-card">
-                        <div class="pro-card-image">
-                            <span class="pro-tag accent">Alta Definición</span>
-                            <img src="img/catalogo/monitor.png" alt="Monitor Quirúrgico 4K Stryker">
-                        </div>
-                        <div class="pro-card-content">
-                            <h3>Sistemas de Visualización 4K</h3>
-                            <p>Monitores de grado médico que ofrecen una claridad y precisión de color excepcionales para procedimientos críticos.</p>
-                            <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+        <script src="scripts/components/carrusel.js" defer></script> 
 
-                    <article class="pro-card featured">
-                        <div class="pro-card-image">
-                            <span class="pro-tag">Set Completo</span>
-                            <img src="img/catalogo/charola.png" alt="Charola de Instrumental Laparoscópico">
-                        </div>
-                        <div class="pro-card-content">
-                            <h3>Instrumental Laparoscópico</h3>
-                            <p>Sets completos de instrumental de precisión, ópticas y cables de fibra óptica listos para esterilizar.</p>
-                            <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+<section id="catalogo" class="catalog-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Catálogo de Productos</h2>
+            <p class="section-subtitle">Equipamiento de alta especialidad para quirófanos modernos</p>
+        </div>
+        
+        <div class="carousel-wrapper">
+            
+            <button class="carousel-btn prev-btn" aria-label="Anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
 
-                    <article class="pro-card">
-                        <div class="pro-card-image">
-                            <span class="pro-tag">Solución Integral</span>
-                            <img src="img/catalogo/torre.png" alt="Torre de Endoscopía Stryker y Ethicon">
-                        </div>
-                        <div class="pro-card-content">
-                            <h3>Torres de Endoscopía</h3>
-                            <p>Integración de procesadores, fuentes de luz y gestión de imágenes de marcas líderes como Stryker y Ethicon.</p>
-                            <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                </div>
+            <div class="carousel-viewport">
+                <ul class="carousel-track">
+                    
+                    <li class="carousel-slide">
+                        <article class="pro-card">
+                            <div class="pro-card-image">
+                                <span class="pro-tag accent">Alta Definición</span>
+                                <img src="img/catalogo/monitor.png" alt="Monitor Quirúrgico 4K Stryker">
+                            </div>
+                            <div class="pro-card-content">
+                                <h3>Sistemas de Visualización 4K</h3>
+                                <p>Monitores de grado médico que ofrecen una claridad y precisión de color excepcionales para procedimientos críticos.</p>
+                                <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li class="carousel-slide">
+                        <article class="pro-card featured">
+                            <div class="pro-card-image">
+                                <span class="pro-tag">Set Completo</span>
+                                <img src="img/catalogo/charola.png" alt="Charola de Instrumental Laparoscópico">
+                            </div>
+                            <div class="pro-card-content">
+                                <h3>Instrumental Laparoscópico</h3>
+                                <p>Sets completos de instrumental de precisión, ópticas y cables de fibra óptica listos para esterilizar.</p>
+                                <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li class="carousel-slide">
+                        <article class="pro-card">
+                            <div class="pro-card-image">
+                                <span class="pro-tag">Solución Integral</span>
+                                <img src="img/catalogo/torre.png" alt="Torre de Endoscopía Stryker y Ethicon">
+                            </div>
+                            <div class="pro-card-content">
+                                <h3>Torres de Endoscopía</h3>
+                                <p>Integración de procesadores, fuentes de luz y gestión de imágenes de marcas líderes como Stryker y Ethicon.</p>
+                                <a href="#" class="pro-link">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </li>
+                    
+                </ul>
             </div>
-        </section>
+
+            <button class="carousel-btn next-btn" aria-label="Siguiente">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="carousel-dots"></div>
+
+    </div>
+</section>
 
         <section id="faq" class="faq-section">
             <div class="container">
